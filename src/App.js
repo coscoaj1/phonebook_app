@@ -44,8 +44,10 @@ const App = () => {
 
     if (alreadyExists) {
       const person = persons.find((p) => p.name === newName);
+      console.log(`${person.name} already exists`);
       const changedPerson = { ...person, phoneNumber: newNumber };
       const { id } = person;
+      console.log(changedPerson);
 
       if (newNumber.length < 8) {
         setNotificationMessage(
@@ -64,6 +66,7 @@ const App = () => {
         phoneService //
           .update(person.id, changedPerson)
           .then((returnedPerson) => {
+            console.log(returnedPerson);
             setPersons(
               persons.map((person) =>
                 person.id !== id ? person : returnedPerson
