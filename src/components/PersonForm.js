@@ -9,7 +9,7 @@ const Personform = ({
 }) => {
   return (
     <>
-      <div className="flex flex-col gap-4 items-center w-96 bg-white rounded shadow-lg p-8 m-4">
+      <div className="flex flex-col gap-4 items-center w-96 bg-gray-100 rounded-md shadow-lg p-8 h-auto">
         <h2 className="text-2xl font-bold text-black">Add New Contact</h2>
         <form
           className="flex flex-col gap-4 justify-between w-72"
