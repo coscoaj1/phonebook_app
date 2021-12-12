@@ -37,14 +37,14 @@ const App = () => {
     };
 
     const alreadyExists = persons.some((person) => person.name === newName);
-
+    console.log(alreadyExists);
     if (newName === "") {
       return;
     }
 
     if (alreadyExists) {
       const person = persons.find((p) => p.name === newName);
-      const changedPerson = { ...person, number: newNumber };
+      const changedPerson = { ...person, phoneNumber: newNumber };
       const { id } = person;
 
       if (newNumber.length < 8) {
@@ -74,7 +74,7 @@ const App = () => {
             timeout();
           })
           .catch((error) => {
-            console.log(error.response.data);
+            console.log(error);
             setNotificationMessage(
               `Information for ${person.name} has already been removed from server`
             );
@@ -138,12 +138,12 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <p className="text-5xl text-center font-bold justify-self-start">
+    <div className="container relative">
+      <p className="text-5xl text-center font-bold justify-self-start mb-12">
         Phonebook App
       </p>
-      <div className=" flex justify-around items-center h-full">
-        <Notification message={notificationMessage} />
+      <Notification message={notificationMessage} />
+      <div className="flex justify-around">
         <Personform
           newName={newName}
           newNumber={newNumber}
@@ -151,17 +151,19 @@ const App = () => {
           handleNameChange={handleNameChange}
           addName={addName}
         />
-        <div className="flex items-center flex-col gap-4">
-          <div className="flex gap-2 justify-between items-center">
-            <p className="text-lg font-medium">Filtered list</p>
+        <div className="flex bg-gray-100 border border-black flex-col h-auto max-h-[75%] w-96 gap-4 rounded-md">
+          <div className="flex flex-col items-center">
+            <p className="text-lg font-bold text-gray-700 uppercase py-2 px-3">
+              Search:
+            </p>
             <input
-              className="input"
+              className="text-black outline-none border border-black rounded-sm px-3 py-2"
               type="text"
               onChange={handleFilter}
             ></input>
           </div>
           <div className="">
-            <h2 className="text-lg font-medium">Phone Numbers:</h2>
+            <h2 className="text-lg font-medium text-black">Phone Numbers:</h2>
             <PersonList
               persons={persons}
               handleDelete={handleDelete}
