@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import PersonList from "./components/PersonList";
 import Personform from "./components/PersonForm";
 import axios from "axios";
 import phoneService from "./services/phonebook";
 import "./index.css";
 import Notification from "./components/Notification";
+import ListContainer from "./components/ListContainer";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -20,7 +20,7 @@ const App = () => {
     }, 5000);
   };
   const hook = () => {
-    axios.get("http://localhost:3001/api/people/all").then((response) => {
+    axios.get("/api/people/all").then((response) => {
       console.log("promise fulfilled");
       setPersons(response.data);
       console.log(response.data);
@@ -142,7 +142,7 @@ const App = () => {
 
   return (
     <div className="container relative">
-      <p className="text-5xl text-center font-bold justify-self-start mb-12">
+      <p className="text-6xl text-center font-bold justify-self-start mb-12">
         Phonebook App
       </p>
       <Notification message={notificationMessage} />
@@ -154,27 +154,13 @@ const App = () => {
           handleNameChange={handleNameChange}
           addName={addName}
         />
-        <div className="flex bg-gray-100 border border-black flex-col h-auto max-h-[75%] w-96 gap-4 rounded-md">
-          <div className="flex flex-col items-center">
-            <p className="text-lg font-bold text-gray-700 uppercase py-2 px-3">
-              Search:
-            </p>
-            <input
-              className="text-black outline-none border border-black rounded-sm px-3 py-2"
-              type="text"
-              onChange={handleFilter}
-            ></input>
-          </div>
-          <div className="">
-            <h2 className="text-lg font-medium text-black">Phone Numbers:</h2>
-            <PersonList
-              persons={persons}
-              handleDelete={handleDelete}
-              filteredData={filteredData}
-              filter={filter}
-            />
-          </div>
-        </div>
+        <ListContainer
+          persons={persons}
+          handleDelete={handleDelete}
+          filteredData={filteredData}
+          filter={filter}
+          handleFilter={handleFilter}
+        />
       </div>
     </div>
   );
